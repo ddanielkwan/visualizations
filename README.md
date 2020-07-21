@@ -1,1 +1,3 @@
-stock prediction and corona visualization
+stock prediction 
+corona vis
+k means alg
