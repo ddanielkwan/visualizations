@@ -1,3 +1,3 @@
-stock prediction \n
-corona vis \n
-k means alg \n
+stock prediction,
+corona vis, 
+k means alg
