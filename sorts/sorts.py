@@ -1,4 +1,7 @@
 import random
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+import numpy as np
 
 array = random.sample(range(0,20),10)
 
@@ -21,8 +24,10 @@ def selection_sort(array):
         for j in range(i+1,len(array)):
             if array[j] < array[min]:
                 min = j
+            yield array
         swap(array, i, min)
-    return
+        yield array
+ 
 
 """
 Bubble Sort
@@ -34,7 +39,7 @@ def bubble_sort(array):
             if array[j+1] < array[j]:
                 swap(array,j+1,j)
 
-    return
+            yield array
 
 """
 Insertion Sort
@@ -46,7 +51,8 @@ def insertion_sort(array):
         while j > 0 and array[j-1] > array[j]:
             swap(array,j,j-1)
             j = j-1
-    return
+            yield array
+  
 
 """
 Merge Sort
@@ -120,3 +126,28 @@ def partition(array, l, h):
 
 #To do: Add matplotlib animation
 #To do: heap sort, radix sort, bogo sort
+if __name__ == "__main__":
+   
+    fig, ax = plt.subplots()
+    generator = selection_sort(array) #the sorting visualization algo
+
+    bar_rects = ax.bar(range(len(array)), array)
+    
+ 
+    ax.set_xlim(0, len(array))
+    ax.set_ylim(0, int(len(array)) * 2)
+
+    
+
+   
+    iteration = [0]
+    def update(array, rects, iteration):
+        for rect, val in zip(rects, array):
+            rect.set_height(val)
+        iteration[0] += 1
+       
+
+    final = animation.FuncAnimation(fig, func=update,fargs=(bar_rects, iteration), frames=generator, interval=10)
+
+
+    plt.show()
